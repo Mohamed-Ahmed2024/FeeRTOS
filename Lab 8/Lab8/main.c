@@ -1,10 +1,8 @@
 /*
- * main.c  -  Lab 8 : Temperature-Based Motor Control with FreeRTOS  [FIXED]
- *
- * Target  : ATmega169PA @ 8 MHz  (1 KB SRAM total)
+ * main.c  -  Lab 8 : Temperature-Based Motor Control with FreeRTOS  
+ * Target  : ATmega169PA @ 8 MHz 
  * IDE     : Microchip Studio
  *
-
  */
 
 #define F_CPU 8000000UL
@@ -30,8 +28,6 @@
 static QueueHandle_t     xMotorQueue;   /* uint8_t motor state              */
 static SemaphoreHandle_t xUARTMutex;   
 
-/* buttonOverride: written only by the highest-priority task (vButtonTask).
-   Single-byte R/W is atomic on AVR - no extra protection needed.            */
 static volatile uint8_t buttonOverride = 0;
 
 
@@ -69,7 +65,7 @@ void vButtonTask(void *pv)
                 buttonOverride = 0;
 
                 xSemaphoreTake(xUARTMutex, portMAX_DELAY);
-                uart_send_P(PSTR("[Button] Pressed ->OVRRIDE OFF:temperatur Control \r\n"));
+                uart_send_P(PSTR("[Button] Pressed ->OVRRIDE OFF:temperature Control \r\n"));
                 xSemaphoreGive(xUARTMutex);
             }
             prevState = btnNow;
